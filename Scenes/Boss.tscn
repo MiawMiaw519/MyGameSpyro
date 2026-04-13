@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bgfgewq7ir5ay"]
+
+[ext_resource type="Script" uid="uid://d0o5fpnwhiql8" path="res://Scripts/Boss.gd" id="1_boss"]
+[ext_resource type="PackedScene" path="res://Scenes/Projectile.tscn" id="2_projectile"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_boss"]
+size = Vector3(8, 16, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boss"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_boss"]
+size = Vector3(8, 16, 8)
+
+[node name="Boss" type="CharacterBody3D" unique_id=1051949078]
+script = ExtResource("1_boss")
+projectile_scene = ExtResource("2_projectile")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1173008813]
+mesh = SubResource("BoxMesh_boss")
+surface_material_override/0 = SubResource("StandardMaterial3D_boss")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=268644216]
+shape = SubResource("BoxShape3D_boss")
+
+[node name="Timer" type="Timer" parent="." unique_id=2060568791]
+wait_time = 2.0
+autostart = true

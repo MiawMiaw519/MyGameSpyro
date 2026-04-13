@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bew2wgw036b6s"]
+
+[ext_resource type="PackedScene" uid="uid://lmxm3jik6dm2" path="res://Scenes/Enemy.tscn" id="1_enemy"]
+[ext_resource type="Script" uid="uid://cy3xkfykgtva0" path="res://Scripts/EnemySpiderType.gd" id="2_spider_script"]
+[ext_resource type="PackedScene" uid="uid://w6arswwb6dr" path="res://Assets/spyro-the-dragon-reignited/spider-enemy/source/Attack.fbx" id="3_spider_model"]
+
+[node name="SpiderEnemy" unique_id=112781638 instance=ExtResource("1_enemy")]
+script = ExtResource("2_spider_script")
+spider_model = ExtResource("3_spider_model")
+spider_scale = Vector3(200, 200, 200)
+spider_position = Vector3(0, 0, 0)
+spider_rotation_degrees = Vector3(0, 0, 0)
+
+[node name="SpiderVisual" parent="." index="2" unique_id=1007609026 instance=ExtResource("3_spider_model")]
+transform = Transform3D(180, 0, 0, 0, 180, 0, 0, 0, 180, 0, 0, 0)

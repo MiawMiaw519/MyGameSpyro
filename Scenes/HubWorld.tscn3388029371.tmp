@@ -1,0 +1,135 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://Assets/spyro-the-dragon-reignited/Spyro.tscn" id="1_spyro"]
+[ext_resource type="PackedScene" path="res://Scenes/Portal.tscn" id="2_portal"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.384314, 0.454902, 1, 1)
+
+[sub_resource type="Sky" id="Sky_sky"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_sky"]
+background_mode = 2
+sky = SubResource("Sky_sky")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass"]
+albedo_color = Color(0.2, 0.5, 0.2, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ground"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_island_base"]
+top_radius = 12
+bottom_radius = 14
+height = 3
+radial_segments = 32
+
+[sub_resource type="BoxMesh" id="BoxMesh_island_top"]
+size = Vector3(16, 0.4, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_walkway"]
+size = Vector3(6, 0.4, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plinth"]
+size = Vector3(4, 0.6, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_arch_column"]
+size = Vector3(0.6, 4, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_arch_beam"]
+size = Vector3(6, 0.5, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_crystal"]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 4.5
+radial_segments = 16
+
+[sub_resource type="SphereMesh" id="SphereMesh_boulder"]
+radius = 1.4
+height_segments = 16
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_island_cliff"]
+albedo_color = Color(0.35, 0.2, 0.1, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_island_grass"]
+albedo_color = Color(0.21, 0.7, 0.37, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walkway"]
+albedo_color = Color(0.65, 0.48, 0.25, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plinth"]
+albedo_color = Color(0.48, 0.55, 0.75, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arch"]
+albedo_color = Color(0.42, 0.3, 0.22, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crystal"]
+albedo_color = Color(0.28, 0.75, 1.0, 0.6)
+transparency = 1
+emission_enabled = true
+emission = Color(0.3, 0.6, 1, 1)
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boulder"]
+albedo_color = Color(0.34, 0.26, 0.2, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_island_base"]
+radius = 14
+height = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_walkway"]
+size = Vector3(6, 0.4, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plinth"]
+size = Vector3(4, 0.6, 4)
+
+[node name="HubWorld" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sky")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_grass")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_ground")
+
+[node name="Spyro" parent="." instance=ExtResource("1_spyro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Portals" type="Node3D" parent="."]
+
+[node name="Portal1" parent="Portals" instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -20)
+target_scene = "res://Scenes/Level1_Tuto.tscn"
+gems_required = 0
+
+[node name="Portal2" parent="Portals" instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.5, -15)
+target_scene = "res://Scenes/Level2_Platform.tscn"
+gems_required = 50
+
+[node name="Portal3" parent="Portals" instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1.5, -15)
+target_scene = "res://Scenes/Level3_Combat.tscn"
+gems_required = 150

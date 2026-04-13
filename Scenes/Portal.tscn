@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://clkh1igjv771t"]
+
+[ext_resource type="Script" uid="uid://crfme415od4j6" path="res://Scripts/Portal.gd" id="1_portal"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_portal"]
+height = 3.0
+radius = 1.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ring"]
+albedo_color = Color(0.7, 0.78, 1, 1)
+metallic = 0.3
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.2, 0.35, 0.8, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring"]
+inner_radius = 1.25
+outer_radius = 1.65
+rings = 48
+ring_segments = 24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_core"]
+transparency = 1
+albedo_color = Color(0.28, 0.72, 1, 0.35)
+roughness = 0.08
+emission_enabled = true
+emission = Color(0.2, 0.55, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_core"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 2.7
+radial_segments = 24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pedestal"]
+albedo_color = Color(0.25, 0.21, 0.17, 1)
+roughness = 0.92
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pedestal"]
+top_radius = 1.6
+bottom_radius = 1.85
+height = 0.9
+radial_segments = 24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gem"]
+transparency = 1
+albedo_color = Color(0.5, 0.95, 1, 0.8)
+roughness = 0.1
+emission_enabled = true
+emission = Color(0.35, 0.9, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gem"]
+radius = 0.22
+height = 0.44
+radial_segments = 16
+
+[node name="Portal" type="Area3D" unique_id=2050783435]
+script = ExtResource("1_portal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=840659764]
+shape = SubResource("CylinderShape3D_portal")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1700826046]
+
+[node name="PortalRing" type="MeshInstance3D" parent="VisualRoot" unique_id=329584368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+material_override = SubResource("StandardMaterial3D_ring")
+mesh = SubResource("TorusMesh_ring")
+
+[node name="PortalCore" type="MeshInstance3D" parent="VisualRoot" unique_id=889756162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+material_override = SubResource("StandardMaterial3D_core")
+mesh = SubResource("CylinderMesh_core")
+
+[node name="PortalLight" type="OmniLight3D" parent="VisualRoot" unique_id=53267796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+light_color = Color(0.45, 0.82, 1, 1)
+light_energy = 1.25
+omni_range = 6.0
+
+[node name="Pedestal" type="MeshInstance3D" parent="VisualRoot" unique_id=779292558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+material_override = SubResource("StandardMaterial3D_pedestal")
+mesh = SubResource("CylinderMesh_pedestal")
+
+[node name="GemLeft" type="MeshInstance3D" parent="VisualRoot" unique_id=62387126]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, -1.2, 1.2, 0.15)
+material_override = SubResource("StandardMaterial3D_gem")
+mesh = SubResource("SphereMesh_gem")
+
+[node name="GemRight" type="MeshInstance3D" parent="VisualRoot" unique_id=2071300744]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 1.2, 1.2, -0.15)
+material_override = SubResource("StandardMaterial3D_gem")
+mesh = SubResource("SphereMesh_gem")
+
+[node name="TitleLabel" type="Label3D" parent="VisualRoot" unique_id=1787689409]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 4, 0)
+modulate = Color(1, 0.97, 0.7, 1)
+outline_modulate = Color(0.03, 0.03, 0.03, 1)
+text = "PORTAL"
+
+[node name="RequirementLabel" type="Label3D" parent="VisualRoot" unique_id=1355314342]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 3.4, 0)
+modulate = Color(0.86, 0.95, 1, 1)
+outline_modulate = Color(0.03, 0.03, 0.03, 1)
+text = "Condition"

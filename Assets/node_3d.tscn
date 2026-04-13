@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cmy268k80ld7e"]
+
+[ext_resource type="Script" uid="uid://bdcv5huebdk3f" path="res://Scripts/character_body_3d.gd" id="2_pr58e"]
+[ext_resource type="PackedScene" uid="uid://bf4p3rsln6pwl" path="res://Assets/fly.fbx" id="2_ts055"]
+[ext_resource type="Texture2D" uid="uid://c4secs3w304i1" path="res://Assets/textures/Tex_Ride_FengHuang_01b_D_A.tga.png" id="3_ts055"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ts055"]
+resource_local_to_scene = true
+radius = 3.638072
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pr58e"]
+albedo_texture = ExtResource("3_ts055")
+
+[sub_resource type="BoxMesh" id="BoxMesh_o8rcd"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pr58e"]
+size = Vector2(100, 100)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pr58e"]
+points = PackedVector3Array(50.78371, 0.7934955, 50.78371, -50.78371, -0.7934955, -50.78371, -50.78371, 0.7934955, -50.78371, 50.78371, -0.7934955, -50.78371, -50.78371, -0.7934955, 50.78371, -50.78371, 0.7934955, 50.78371, 50.78371, 0.7934955, -50.78371, 50.78371, -0.7934955, 50.78371)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pr58e"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ts055"]
+bg_color = Color(0.41568628, 0.8352941, 0.2, 1)
+
+[node name="Node3D" type="Node3D" unique_id=454467100]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1469414948]
+transform = Transform3D(0.99216497, -0.108196855, 0.062467426, 2.7805946e-08, 0.49999994, 0.86602545, -0.12493494, -0.8592401, 0.4960824, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=68415109]
+environment = SubResource("Environment_noarx")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=400406884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.366698, 0)
+script = ExtResource("2_pr58e")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D" unique_id=923238441]
+transform = Transform3D(-3.934025e-06, 0, -90, 0, 90, 0, 90, 0, -3.934025e-06, 0, 4, 0)
+spring_length = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D" unique_id=1751800017]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.012260197, 0.017457467, 0.030581871)
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1737822882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9883757, 2.3335834, 0.065550566)
+shape = SubResource("SphereShape3D_ts055")
+
+[node name="Pivot_Modele" type="Node3D" parent="CharacterBody3D" unique_id=327169454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1288252, 0)
+
+[node name="fly" parent="CharacterBody3D/Pivot_Modele" unique_id=1895659276 instance=ExtResource("2_ts055")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 0, 0, 0)
+
+[node name="AMesh_Ride_FengHuang_01" parent="CharacterBody3D/Pivot_Modele/fly/Skeleton3D" parent_id_path=PackedInt32Array(1895659276, 1403405920) index="0" unique_id=371104038]
+material_overlay = SubResource("StandardMaterial3D_pr58e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=221766230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8828354, 0, 0)
+mesh = SubResource("BoxMesh_o8rcd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1224155093]
+mesh = SubResource("PlaneMesh_pr58e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1318630871]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=440677051]
+shape = SubResource("ConvexPolygonShape3D_pr58e")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1273089158]
+
+[node name="EnduranceBar" type="ProgressBar" parent="CanvasLayer" unique_id=571327032]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pr58e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ts055")
+show_percentage = false
+
+[editable path="CharacterBody3D/Pivot_Modele/fly"]

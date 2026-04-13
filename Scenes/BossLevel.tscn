@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://r6y2jiywnyye"]
+
+[ext_resource type="PackedScene" uid="uid://bqowstyyyp1ta" path="res://Assets/spyro-the-dragon-reignited/Spyro.tscn" id="1_spyro"]
+[ext_resource type="PackedScene" uid="uid://bgfgewq7ir5ay" path="res://Scenes/Boss.tscn" id="2_boss"]
+[ext_resource type="Script" uid="uid://b3rt0c86uc2br" path="res://Scripts/BossLevel.gd" id="3_boss_level_script"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boss"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ground"]
+
+[node name="BossLevel" type="Node3D" unique_id=57690525]
+script = ExtResource("3_boss_level_script")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1851754404]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=104989336]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1430045748]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_boss")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1187799797]
+shape = SubResource("WorldBoundaryShape3D_ground")
+
+[node name="Spyro" parent="." unique_id=513510112 instance=ExtResource("1_spyro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 40)
+
+[node name="Boss" parent="." unique_id=656791873 instance=ExtResource("2_boss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="BossUI" type="CanvasLayer" parent="." unique_id=64338849]
+layer = 30
+
+[node name="TopFrame" type="Panel" parent="BossUI" unique_id=2048049089]
+modulate = Color(1, 1, 1, 0.96)
+anchors_preset = -1
+anchor_left = 0.11
+anchor_top = 0.02
+anchor_right = 0.89
+anchor_bottom = 0.115
+
+[node name="BossName" type="Label" parent="BossUI/TopFrame" unique_id=911353262]
+layout_mode = 0
+anchor_top = 0.03
+anchor_right = 1.0
+anchor_bottom = 0.42
+theme_override_colors/font_color = Color(1, 0.82, 0.28, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.05, 0.3, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "CALMARAMON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossHealthBar" type="ProgressBar" parent="BossUI/TopFrame" unique_id=1324791232]
+layout_mode = 0
+anchor_left = 0.03
+anchor_top = 0.5
+anchor_right = 0.97
+anchor_bottom = 0.95
+value = 100.0
+show_percentage = false

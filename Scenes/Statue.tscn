@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://17svskxqmxey"]
+
+[ext_resource type="Script" uid="uid://dhaiyuqq8fr3g" path="res://Scripts/Statue.gd" id="1_statue"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_statue"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_statue"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_statue"]
+size = Vector3(2, 2, 2)
+
+[node name="Statue" type="Area3D" unique_id=4742608]
+script = ExtResource("1_statue")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1217015648]
+mesh = SubResource("BoxMesh_statue")
+surface_material_override/0 = SubResource("StandardMaterial3D_statue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=257032662]
+shape = SubResource("BoxShape3D_statue")

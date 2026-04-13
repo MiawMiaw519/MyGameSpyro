@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://2mf72ryxqjn6"]
+
+[ext_resource type="Script" uid="uid://buv28ahqquqq5" path="res://Scripts/PlayerFireball.gd" id="1_fireball_script"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_fireball"]
+radius = 0.22
+height = 0.44
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fireball"]
+albedo_color = Color(1, 0.5, 0.1, 1)
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 0.35, 0.05, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trail"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 0, 1)
+spread = 18.0
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.55
+color = Color(1, 0.55, 0.15, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_trail"]
+radius = 0.06
+height = 0.12
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fireball"]
+radius = 0.24
+
+[node name="PlayerFireball" type="Area3D" unique_id=351755649]
+collision_layer = 8
+script = ExtResource("1_fireball_script")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1034566851]
+mesh = SubResource("SphereMesh_fireball")
+surface_material_override/0 = SubResource("StandardMaterial3D_fireball")
+
+[node name="Trail" type="GPUParticles3D" parent="." unique_id=869100314]
+amount = 22
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_trail")
+draw_pass_1 = SubResource("SphereMesh_trail")
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=3834465]
+light_color = Color(1, 0.45, 0.2, 1)
+light_energy = 0.7
+omni_range = 2.2
+
+[node name="ShotSFX" type="AudioStreamPlayer3D" parent="." unique_id=241460413]
+attenuation_model = 1
+unit_size = 6.0
+max_distance = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1739004666]
+shape = SubResource("SphereShape3D_fireball")

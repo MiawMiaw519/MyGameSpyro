@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://doiibqbjw1pym"]
+
+[ext_resource type="PackedScene" uid="uid://bqowstyyyp1ta" path="res://Assets/spyro-the-dragon-reignited/Spyro.tscn" id="1_spyro"]
+[ext_resource type="PackedScene" path="res://Scenes/Portal.tscn" id="2_portal"]
+[ext_resource type="PackedScene" uid="uid://lmxm3jik6dm2" path="res://Scenes/Enemy.tscn" id="3_enemy"]
+[ext_resource type="PackedScene" uid="uid://bew2wgw036b6s" path="res://Scenes/SpiderEnemy.tscn" id="4_spider_enemy"]
+[ext_resource type="Script" uid="uid://dfirmq1w6wh1l" path="res://Scripts/EnemySoldier.gd" id="5_enemy_soldier"]
+[ext_resource type="Script" uid="uid://ch1gbfc7ag30d" path="res://Scripts/EnemyColossus.gd" id="6_enemy_colossus"]
+[ext_resource type="Script" uid="uid://c4rukm8i35vse" path="res://Scripts/Level3Combat.gd" id="7_level3_combat"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_combat"]
+albedo_color = Color(0.8, 0.2, 0.1, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ground"]
+
+[node name="Level3" type="Node3D" unique_id=1560621924]
+script = ExtResource("7_level3_combat")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1024796624]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=890596959]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=2117028325]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_combat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1157176565]
+shape = SubResource("WorldBoundaryShape3D_ground")
+
+[node name="Spyro" parent="." unique_id=1198862911 instance=ExtResource("1_spyro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ReturnPortal" parent="." unique_id=1557863453 instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 1.5, 28)
+target_scene = "res://Scenes/HubWorld.tscn"
+portal_title = "Retour Hub"
+
+[node name="Enemies" type="Node3D" parent="." unique_id=476901097]
+
+[node name="SpiderEnemy" parent="Enemies" unique_id=1253264610 instance=ExtResource("4_spider_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
+
+[node name="Enemy2" parent="Enemies" unique_id=141330224 instance=ExtResource("3_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
+script = ExtResource("5_enemy_soldier")
+
+[node name="Enemy3" parent="Enemies" unique_id=1887900636 instance=ExtResource("3_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12)
+script = ExtResource("6_enemy_colossus")
+
+[node name="BossPortal" parent="." unique_id=914760471 instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 20)
+target_scene = "res://Scenes/BossLevel.tscn"

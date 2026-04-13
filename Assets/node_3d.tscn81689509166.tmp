@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b4bfrm866tfw8"]
+
+[ext_resource type="PackedScene" uid="uid://2xhk7moatdem" path="res://Assets/real-time_bones_demo_phoenix_bird.glb" id="1_3xulp"]
+[ext_resource type="Script" uid="uid://bdcv5huebdk3f" path="res://Scripts/character_body_3d.gd" id="2_pr58e"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D" unique_id=454467100]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1469414948]
+transform = Transform3D(0.99216497, -0.108196855, 0.062467426, 2.7805946e-08, 0.49999994, 0.86602545, -0.12493494, -0.8592401, 0.4960824, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=68415109]
+environment = SubResource("Environment_noarx")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=400406884]
+script = ExtResource("2_pr58e")
+
+[node name="Camera3D2" type="Camera3D" parent="CharacterBody3D" unique_id=168015990]
+transform = Transform3D(0.9695193, 0.072829396, -0.23394063, 0.015038158, 0.9353136, 0.35350037, 0.24455304, -0.34624347, 0.9057093, -25.164728, 63.44314, 73.03429)
+fov = 57.1
+
+[node name="Sketchfab_Scene" parent="CharacterBody3D" unique_id=1485886605 instance=ExtResource("1_3xulp")]
+transform = Transform3D(0.027361378, -0.006216968, 0.08551435, -0.019538052, 0.086949356, 0.012572736, -0.083484255, -0.02238657, 0.025084298, 0, 0, 0)

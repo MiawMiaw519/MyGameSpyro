@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://bhi1iqic47vmk"]
+
+[ext_resource type="PackedScene" uid="uid://bqowstyyyp1ta" path="res://Assets/spyro-the-dragon-reignited/Spyro.tscn" id="1_spyro"]
+[ext_resource type="PackedScene" path="res://Scenes/Portal.tscn" id="2_portal"]
+[ext_resource type="PackedScene" uid="uid://cak8sior2nf6g" path="res://Scenes/Gem.tscn" id="3_gem"]
+[ext_resource type="PackedScene" uid="uid://ce0q6rm7oowaf" path="res://Assets/spyro-the-dragon-reignited/source/interdimensional_floating_islands.glb" id="4_skymap"]
+[ext_resource type="Script" uid="uid://nyafhhg0tx5k" path="res://Scripts/MapCollisionGenerator.gd" id="5_map_collision"]
+
+[node name="Level2" type="Node3D" unique_id=1776850711]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=334988242]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="InterdimensionalFloatingIslands" parent="." unique_id=1120713019 instance=ExtResource("4_skymap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("5_map_collision")
+
+[node name="Spyro" parent="." unique_id=1322641511 instance=ExtResource("1_spyro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.627808, -3.170227, -29.188232)
+
+[node name="ReturnPortal" parent="." unique_id=1592049040 instance=ExtResource("2_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.310608, -4.7199707, -44.864502)
+target_scene = "res://Scenes/HubWorld.tscn"
+portal_title = "Retour Hub"
+complete_level_on_enter = "level2"
+
+[node name="Gems" type="Node3D" parent="." unique_id=881066330]
+
+[node name="Gem1" parent="Gems" unique_id=1171426883 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.32927, -10.334314, -36.822105)
+
+[node name="Gem2" parent="Gems" unique_id=431227207 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.65881, -2.1262207, -37.85982)
+
+[node name="Gem3" parent="Gems" unique_id=1063704793 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.98767, 0.30256343, -37.419384)
+type = 1
+
+[node name="Gem4" parent="Gems" unique_id=1972846279 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.109562, 0.0025634766, -38.33906)
+
+[node name="Gem5" parent="Gems" unique_id=1017938622 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.573383, 0.19691157, -37.905933)
+type = 1
+
+[node name="Gem6" parent="Gems" unique_id=1534621072 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.48885, -0.31097412, -37.479)
+type = 2
+
+[node name="Gem7" parent="Gems" unique_id=161189782 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -3, -31.6)
+type = 1
+
+[node name="Gem8" parent="Gems" unique_id=1361937596 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.711828, 1.4, -21.408253)
+type = 2
+
+[node name="Gem9" parent="Gems" unique_id=358498303 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.402737, 1.8, -37)
+type = 3
+
+[node name="Gem10" parent="Gems" unique_id=883809075 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.717125, -2.8094482, -34.89326)
+type = 1
+
+[node name="Gem11" parent="Gems" unique_id=936976557 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.34853, -5.3695803, -32.950584)
+type = 2
+
+[node name="Gem12" parent="Gems" unique_id=1366005263 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120.73638, -9.113001, -25.593433)
+type = 3
+
+[node name="Gem13" parent="Gems" unique_id=1856079952 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.399818, 1.8, -19.813574)
+
+[node name="Gem14" parent="Gems" unique_id=1909175693 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.422807, 1.4, -19.607178)
+type = 1
+
+[node name="Gem15" parent="Gems" unique_id=408470750 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36969, 1.6, -18.399)
+type = 2
+
+[node name="Gem16" parent="Gems" unique_id=854171295 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0312378, 1.8, -17.396)
+
+[node name="Gem17" parent="Gems" unique_id=357865222 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25178242, 1.832251, -14.006786)
+type = 1
+
+[node name="Gem18" parent="Gems" unique_id=168915874 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8493531, 6.6590576, -9.284302)
+type = 2
+
+[node name="Gem19" parent="Gems" unique_id=1335708299 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71972656, 11.075586, -7.569995)
+
+[node name="Gem20" parent="Gems" unique_id=1667908358 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1147337, 10.513575, -9.328931)
+type = 1
+
+[node name="Gem21" parent="Gems" unique_id=848906518 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.221387, 10.368945, -10.4)
+type = 2
+
+[node name="Gem22" parent="Gems" unique_id=656476154 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.570483, 11.816846, -8.6)
+type = 3
+
+[node name="Gem23" parent="Gems" unique_id=546374912 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, -3.6, -36.4)
+type = 3
+
+[node name="Gem24" parent="Gems" unique_id=226535596 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.6, -4.1, -46)
+type = 3

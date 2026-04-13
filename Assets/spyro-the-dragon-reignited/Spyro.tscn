@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://bqowstyyyp1ta"]
+
+[ext_resource type="Script" uid="uid://bdcv5huebdk3f" path="res://Scripts/character_body_3d.gd" id="1_rph2m"]
+[ext_resource type="PackedScene" uid="uid://boympmcfyksb8" path="res://Assets/spyro-the-dragon-reignited/source/spyro_-_spyro_reignited.glb" id="2_uy72m"]
+[ext_resource type="Script" uid="uid://fndfje0hpsrx" path="res://Scripts/GemHUD.gd" id="GemHUD_script"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spyro"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_flame"]
+radius = 1.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_bg"]
+bg_color = Color(0.11, 0.05, 0.15, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.95, 0.77, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_fill"]
+bg_color = Color(0.92, 0.18, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.67, 0.13, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rph2m"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy72m"]
+bg_color = Color(0.41568628, 0.8352941, 0.2, 1)
+
+[node name="Node3D" type="Node3D" unique_id=777784069]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1396466522]
+environment = SubResource("Environment_noarx")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=2034139210]
+script = ExtResource("1_rph2m")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D" unique_id=910223022]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 0)
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D" unique_id=49573474]
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=836642063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_spyro")
+
+[node name="Pivot_Modele" type="Node3D" parent="CharacterBody3D" unique_id=953880681]
+
+[node name="Sketchfab_Scene" parent="CharacterBody3D/Pivot_Modele" unique_id=1636958942 instance=ExtResource("2_uy72m")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="FlameArea" type="Area3D" parent="CharacterBody3D/Pivot_Modele" unique_id=982584955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.5)
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Pivot_Modele/FlameArea" unique_id=1681963789]
+shape = SubResource("SphereShape3D_flame")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1970168640]
+
+[node name="HealthTitle" type="Label" parent="CanvasLayer" unique_id=1212786270]
+offset_left = 22.0
+offset_right = 245.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0.98, 0.82, 0.25, 1)
+text = "🐉 VIE DU DRAGON"
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer" unique_id=280091516]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+offset_left = 20.0
+offset_top = 22.0
+offset_right = 380.0
+offset_bottom = 55.0
+theme_override_styles/background = SubResource("StyleBoxFlat_health_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
+
+[node name="EnduranceBar" type="ProgressBar" parent="CanvasLayer" unique_id=584874791]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -52.0
+offset_right = 320.0
+offset_bottom = -25.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rph2m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uy72m")
+show_percentage = false
+
+[node name="GemCountLabel" type="Label" parent="CanvasLayer" unique_id=1376432056]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 55.0
+text = "💎 0"
+horizontal_alignment = 2
+script = ExtResource("GemHUD_script")
+
+[editable path="CharacterBody3D/Pivot_Modele/Sketchfab_Scene"]

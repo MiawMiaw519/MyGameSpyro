@@ -1,0 +1,348 @@
+[gd_scene format=3 uid="uid://dox07xnp03xsc"]
+
+[ext_resource type="PackedScene" uid="uid://bqowstyyyp1ta" path="res://Assets/spyro-the-dragon-reignited/Spyro.tscn" id="1_spyro"]
+[ext_resource type="PackedScene" path="res://Scenes/Portal.tscn" id="2_portal"]
+[ext_resource type="PackedScene" uid="uid://cak8sior2nf6g" path="res://Scenes/Gem.tscn" id="3_gem"]
+[ext_resource type="Script" uid="uid://dlaegug5ni4p7" path="res://Scripts/HubGuideUI.gd" id="4_hubui"]
+[ext_resource type="PackedScene" uid="uid://b6xd11s80r0bd" path="res://Assets/spyro-the-dragon-reignited/source/AP.fbx" id="5_ap_map"]
+[ext_resource type="Script" uid="uid://cjr4kqlen8ivb" path="res://Scripts/HubWorld.gd" id="6_hubworld"]
+[ext_resource type="Texture2D" uid="uid://bs5uom32awnj1" path="res://Assets/spyro-the-dragon-reignited/source/AP_0.png" id="7_autumn_ground"]
+[ext_resource type="Script" uid="uid://nyafhhg0tx5k" path="res://Scripts/MapCollisionGenerator.gd" id="8_map_collision"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.384314, 0.454902, 1, 1)
+
+[sub_resource type="Sky" id="Sky_sky"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_sky"]
+background_mode = 2
+sky = SubResource("Sky_sky")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(260, 260)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass"]
+albedo_color = Color(0.14, 0.32, 0.16, 1)
+albedo_texture = ExtResource("7_autumn_ground")
+uv1_scale = Vector3(12, 12, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ground"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_plaza"]
+top_radius = 32.0
+bottom_radius = 34.0
+height = 1.2
+radial_segments = 48
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plaza"]
+albedo_color = Color(0.6, 0.72, 0.52, 1)
+roughness = 0.95
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_plaza"]
+height = 1.2
+radius = 34.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_island_base"]
+top_radius = 12.0
+bottom_radius = 14.0
+height = 3.0
+radial_segments = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_island_cliff"]
+albedo_color = Color(0.35, 0.2, 0.1, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_island_top"]
+size = Vector3(16, 0.4, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_island_grass"]
+albedo_color = Color(0.21, 0.7, 0.37, 1)
+roughness = 0.7
+
+[sub_resource type="SphereMesh" id="SphereMesh_boulder"]
+radius = 1.4
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boulder"]
+albedo_color = Color(0.34, 0.26, 0.2, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_island_base"]
+height = 3.0
+radius = 14.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_walkway"]
+size = Vector3(6, 0.4, 12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walkway"]
+albedo_color = Color(0.65, 0.48, 0.25, 1)
+roughness = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_walkway"]
+size = Vector3(6, 1, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plinth"]
+size = Vector3(4, 0.6, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plinth"]
+albedo_color = Color(0.48, 0.55, 0.75, 1)
+roughness = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plinth"]
+size = Vector3(4, 0.6, 4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_crystal"]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 4.5
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crystal"]
+transparency = 1
+albedo_color = Color(0.28, 0.75, 1, 0.6)
+roughness = 0.1
+emission_enabled = true
+emission = Color(0.3, 0.6, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_arch_column"]
+size = Vector3(0.6, 4, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arch"]
+albedo_color = Color(0.42, 0.3, 0.22, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_arch_beam"]
+size = Vector3(6, 0.5, 0.5)
+
+[node name="HubWorld" type="Node3D" unique_id=1899562596]
+script = ExtResource("6_hubworld")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=910445115]
+environment = SubResource("Environment_sky")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1815718137]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1565882924]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1919387183]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_grass")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=25768907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+shape = SubResource("WorldBoundaryShape3D_ground")
+
+[node name="AutumnMap" parent="." unique_id=1673741440 instance=ExtResource("5_ap_map")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, -90.96954, -2, -204.77783)
+script = ExtResource("8_map_collision")
+
+[node name="CentralPlaza" type="StaticBody3D" parent="." unique_id=109824661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -180, -18)
+
+[node name="PlazaMesh" type="MeshInstance3D" parent="CentralPlaza" unique_id=778352612]
+mesh = SubResource("CylinderMesh_plaza")
+surface_material_override/0 = SubResource("StandardMaterial3D_plaza")
+
+[node name="PlazaCollision" type="CollisionShape3D" parent="CentralPlaza" unique_id=212478991]
+shape = SubResource("CylinderShape3D_plaza")
+
+[node name="HubDecor" type="Node3D" parent="." unique_id=397927797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -220, 0)
+
+[node name="IslandFormation" type="Node3D" parent="HubDecor" unique_id=1311652224]
+
+[node name="CentralIsland" type="StaticBody3D" parent="HubDecor/IslandFormation" unique_id=310920104]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, -130)
+collision_layer = 0
+collision_mask = 0
+
+[node name="IslandBaseMesh" type="MeshInstance3D" parent="HubDecor/IslandFormation/CentralIsland" unique_id=3355581]
+mesh = SubResource("CylinderMesh_island_base")
+surface_material_override/0 = SubResource("StandardMaterial3D_island_cliff")
+
+[node name="IslandTopPatch" type="MeshInstance3D" parent="HubDecor/IslandFormation/CentralIsland" unique_id=751230506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 0)
+mesh = SubResource("BoxMesh_island_top")
+surface_material_override/0 = SubResource("StandardMaterial3D_island_grass")
+
+[node name="IslandBoulderLeft" type="MeshInstance3D" parent="HubDecor/IslandFormation/CentralIsland" unique_id=1089011763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.4, -6)
+mesh = SubResource("SphereMesh_boulder")
+surface_material_override/0 = SubResource("StandardMaterial3D_boulder")
+
+[node name="IslandBoulderRight" type="MeshInstance3D" parent="HubDecor/IslandFormation/CentralIsland" unique_id=71176799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.4, -6)
+mesh = SubResource("SphereMesh_boulder")
+surface_material_override/0 = SubResource("StandardMaterial3D_boulder")
+
+[node name="IslandCollision" type="CollisionShape3D" parent="HubDecor/IslandFormation/CentralIsland" unique_id=1268982728]
+shape = SubResource("CylinderShape3D_island_base")
+disabled = true
+
+[node name="FloatingWalkway" type="StaticBody3D" parent="HubDecor" unique_id=947264634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, -120)
+collision_layer = 0
+collision_mask = 0
+
+[node name="WalkwayMesh" type="MeshInstance3D" parent="HubDecor/FloatingWalkway" unique_id=1269112311]
+mesh = SubResource("BoxMesh_walkway")
+surface_material_override/0 = SubResource("StandardMaterial3D_walkway")
+
+[node name="WalkwayCollision" type="CollisionShape3D" parent="HubDecor/FloatingWalkway" unique_id=781620370]
+shape = SubResource("BoxShape3D_walkway")
+
+[node name="PortalPedestal" type="StaticBody3D" parent="HubDecor" unique_id=1945734237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, -125)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PedestalMesh" type="MeshInstance3D" parent="HubDecor/PortalPedestal" unique_id=81708103]
+mesh = SubResource("BoxMesh_plinth")
+surface_material_override/0 = SubResource("StandardMaterial3D_plinth")
+
+[node name="PedestalCollision" type="CollisionShape3D" parent="HubDecor/PortalPedestal" unique_id=1301117949]
+shape = SubResource("BoxShape3D_plinth")
+
+[node name="CrystalCluster" type="Node3D" parent="HubDecor" unique_id=49828301]
+
+[node name="Crystal1" type="MeshInstance3D" parent="HubDecor/CrystalCluster" unique_id=1461056998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.25, -16)
+mesh = SubResource("CylinderMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Crystal2" type="MeshInstance3D" parent="HubDecor/CrystalCluster" unique_id=1836086766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.25, -12)
+mesh = SubResource("CylinderMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Crystal3" type="MeshInstance3D" parent="HubDecor/CrystalCluster" unique_id=203342616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.25, -10)
+mesh = SubResource("CylinderMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Crystal4" type="MeshInstance3D" parent="HubDecor/CrystalCluster" unique_id=676430978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.25, -18)
+mesh = SubResource("CylinderMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Archway" type="Node3D" parent="HubDecor" unique_id=969806863]
+
+[node name="ArchColumnLeft" type="MeshInstance3D" parent="HubDecor/Archway" unique_id=2045864981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 2, -12)
+mesh = SubResource("BoxMesh_arch_column")
+surface_material_override/0 = SubResource("StandardMaterial3D_arch")
+
+[node name="ArchColumnRight" type="MeshInstance3D" parent="HubDecor/Archway" unique_id=1679563419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 2, -12)
+mesh = SubResource("BoxMesh_arch_column")
+surface_material_override/0 = SubResource("StandardMaterial3D_arch")
+
+[node name="ArchBeam" type="MeshInstance3D" parent="HubDecor/Archway" unique_id=2037105028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, -12)
+mesh = SubResource("BoxMesh_arch_beam")
+surface_material_override/0 = SubResource("StandardMaterial3D_arch")
+
+[node name="BoulderPile" type="Node3D" parent="HubDecor" unique_id=1741287369]
+
+[node name="Boulder1" type="MeshInstance3D" parent="HubDecor/BoulderPile" unique_id=1291199274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, -3)
+mesh = SubResource("SphereMesh_boulder")
+surface_material_override/0 = SubResource("StandardMaterial3D_boulder")
+
+[node name="Boulder2" type="MeshInstance3D" parent="HubDecor/BoulderPile" unique_id=1818344962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.2, -3.5)
+mesh = SubResource("SphereMesh_boulder")
+surface_material_override/0 = SubResource("StandardMaterial3D_boulder")
+
+[node name="Spyro" parent="." unique_id=12325690 instance=ExtResource("1_spyro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3015747, 12.142395, 0.36193848)
+
+[node name="Portals" type="Node3D" parent="." unique_id=1462748425]
+
+[node name="Portal1" parent="Portals" unique_id=2146526236 instance=ExtResource("2_portal")]
+transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0.736, 11, -20.635)
+target_scene = "res://Scenes/Level1_Tuto.tscn"
+portal_title = "Niveau 1 - Tuto Charge"
+
+[node name="Portal2" parent="Portals" unique_id=2043133567 instance=ExtResource("2_portal")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 7.227, 11, -20.2)
+target_scene = "res://Scenes/Level2_Platform.tscn"
+portal_title = "Niveau 2 - Plane"
+gems_required = 50
+
+[node name="Portal3" parent="Portals" unique_id=1749888892 instance=ExtResource("2_portal")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 12.975, 11, -19.263)
+target_scene = "res://Scenes/Level3_Combat.tscn"
+portal_title = "Niveau 3 - Combat"
+gems_required = 150
+
+[node name="PortalBoss" parent="Portals" unique_id=325619753 instance=ExtResource("2_portal")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 9.012085, 19.230896, -44.760376)
+target_scene = "res://Scenes/BossLevel.tscn"
+portal_title = "Boss Final - Sorcier"
+required_levels = Array[String](["level1", "level2", "level3"])
+
+[node name="HubGuideUI" type="CanvasLayer" parent="." unique_id=376924507]
+script = ExtResource("4_hubui")
+
+[node name="ObjectiveLabel" type="Label" parent="HubGuideUI" unique_id=1578518534]
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 700.0
+offset_bottom = 330.0
+text = "HUB - OBJECTIF"
+
+[node name="HubGems" type="Node3D" parent="." unique_id=539197732]
+
+[node name="Gem1" parent="HubGems" unique_id=850312299 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -3)
+type = 1
+
+[node name="Gem2" parent="HubGems" unique_id=285957082 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -5)
+type = 1
+
+[node name="Gem3" parent="HubGems" unique_id=1192418106 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -7)
+type = 1
+
+[node name="Gem4" parent="HubGems" unique_id=855731997 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -9)
+type = 1
+
+[node name="Gem5" parent="HubGems" unique_id=808839940 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -11)
+type = 1
+
+[node name="Gem6" parent="HubGems" unique_id=434878371 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.1, -8)
+type = 2
+
+[node name="Gem7" parent="HubGems" unique_id=219841152 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.1, -11)
+type = 2
+
+[node name="Gem8" parent="HubGems" unique_id=1021337292 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.1, -14)
+type = 2
+
+[node name="Gem9" parent="HubGems" unique_id=720433188 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.1, -8)
+type = 2
+
+[node name="Gem10" parent="HubGems" unique_id=852490285 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.1, -11)
+type = 2
+
+[node name="Gem11" parent="HubGems" unique_id=891052776 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1.1, -14)
+type = 2
+
+[node name="Gem12" parent="HubGems" unique_id=936205754 instance=ExtResource("3_gem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, -5)
+type = 3

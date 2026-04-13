@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dio8nusp23ypu"]
+
+[ext_resource type="PackedScene" uid="uid://boympmcfyksb8" path="res://Assets/spyro-the-dragon-reignited/source/spyro_-_spyro_reignited.glb" id="1_r57si"]
+
+[node name="Sketchfab_Scene" unique_id=1636958942 instance=ExtResource("1_r57si")]
